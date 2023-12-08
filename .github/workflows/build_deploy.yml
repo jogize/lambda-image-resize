@@ -3,6 +3,8 @@ on:
   push:
     branches: [ main ]
 
+env:
+    LAMBDA_NAME: lambda-resize
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,3 +16,14 @@ jobs:
           go-version: '1.19' # The Go version to download (if necessary) and use.
       - run: go mod download
       - run: GOARCH=amd64 GOOS=linux go build -o app cmd/application.go
+      - run: zip app.zip app
+
+
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: eu-west-3
+
+      - run: aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file fileb://app.zip
