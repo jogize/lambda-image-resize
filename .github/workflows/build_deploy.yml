@@ -1,0 +1,17 @@
+name: deploy
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.19' # The Go version to download (if necessary) and use.
+      - run: go mod download
+      - run: go build main.go
+      - run: GOARCH=amd64 GOOS=linux go build -o app cmd/application.go
