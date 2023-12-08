@@ -13,6 +13,4 @@ jobs:
         with:
           go-version: '1.19' # The Go version to download (if necessary) and use.
       - run: go mod download
-      - run: go get main.go
-      - run: go build main.go
       - run: GOARCH=amd64 GOOS=linux go build -o app cmd/application.go
