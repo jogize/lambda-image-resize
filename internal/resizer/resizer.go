@@ -17,7 +17,9 @@ func GetResizedImages(configuration configs.Configuration, sourceImagePath strin
 	var resizedImagePaths []string
 
 	for _, imageSize := range configuration.ImageSizes {
+		fmt.Println("in GetResizedImages before resize")
 		resizedImagePath := resize(configuration, imageSize, sourceImagePath)
+		fmt.Println("in GetResizedImages before append")
 		resizedImagePaths = append(resizedImagePaths, resizedImagePath)
 	}
 
@@ -26,7 +28,7 @@ func GetResizedImages(configuration configs.Configuration, sourceImagePath strin
 
 // resizeImage resizes the image and returns path
 func resize(configuration configs.Configuration, imageSize configs.ImageSize, sourceImagePath string) string {
-
+	fmt.Println("in resize on the start")
 	sourceImage, err := imaging.Open(sourceImagePath)
 
 	if err != nil {
@@ -34,12 +36,13 @@ func resize(configuration configs.Configuration, imageSize configs.ImageSize, so
 	}
 
 	var resizedImage *image.NRGBA
+	fmt.Println("in resizedImage on the start")
 	if configuration.IsSaveWithAspectRatio {
 		resizedImage = imaging.Resize(sourceImage, imageSize.Width, 0, imaging.Lanczos)
 	} else {
 		resizedImage = imaging.Resize(sourceImage, imageSize.Width, imageSize.Height, imaging.Lanczos)
 	}
-
+	fmt.Println("in resizedImage on the after")
 	resizedImageName := getResizedImageName(configuration, imageSize, sourceImagePath)
 	imagePath := configuration.LocalImageDirectory + "/" + resizedImageName
 	err = imaging.Save(resizedImage, imagePath)
