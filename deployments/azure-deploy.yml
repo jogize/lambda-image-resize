@@ -1,0 +1,28 @@
+trigger:
+ branches:
+  include:
+    - main
+
+name: $(Build.BuildId)
+
+variables:
+- group: docker-registry
+- group: telegram_bot_retail
+- group: default_vars_ansible
+- name: 'SERVICE_NAME'
+  value: 'retail-bot'
+
+pool:
+  name: "Linux"
+
+
+stages:
+- stage: DeployWithAnsible
+  displayName: 'build docker image with $(Build.BuildId)'
+  jobs:
+  - job: Phase_1
+    displayName: Phase 1
+    cancelTimeoutInMinutes: 1
+    steps:
+    - template: tfs_templates/docker_build_push_rmi.yml@docker_command 
+
