@@ -25,7 +25,7 @@ func GetResizedImages(configuration configs.Configuration, sourceImagePath strin
 
 	return resizedImagePaths
 }
-
+// add for triger
 // resizeImage resizes the image and returns path
 func resize(configuration configs.Configuration, imageSize configs.ImageSize, sourceImagePath string) string {
 	fmt.Println("in resize on the start")
