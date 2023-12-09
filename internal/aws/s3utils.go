@@ -87,7 +87,7 @@ func uploadFile(configuration configs.Configuration, filename string) {
 
 	bucketDir := configuration.UploadDirectory + "/" + filename
 	_, err = uploader.Upload(&s3manager.UploadInput{
-		Bucket: aws.String(configuration.Bucket),
+		Bucket: aws.String(configuration.BucketResized),
 		Key:    aws.String(bucketDir),
 		Body:   file,
 	})

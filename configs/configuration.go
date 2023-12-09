@@ -23,6 +23,7 @@ type Configuration struct {
 	ImageSizes            []ImageSize
 	Region                string
 	Bucket                string
+	BucketResized         string
 }
 
 // GetConfiguration reads env variables and returns Configuration storate
@@ -30,6 +31,7 @@ func GetConfiguration() (*Configuration, error) {
 
 	region := os.Getenv("AWS_REGION")
 	bucket := os.Getenv("AWS_BUCKET")
+	bucketResized := os.Getenv("AWS_BUCKET_RESIZED")
 	envImagesSizes := os.Getenv("IMAGE_SIZES")
 	saveWithAspectRatioStr := os.Getenv("SAVE_WITH_ASPECT_RATIO")
 	imageExtension := os.Getenv("IMAGE_EXTENSION")
@@ -50,6 +52,7 @@ func GetConfiguration() (*Configuration, error) {
 		Region:                region,
 		Bucket:                bucket,
 		LocalImageDirectory:   "/tmp",
+		BucketResized:         bucketResized,
 	}
 
 	return &configuration, nil
