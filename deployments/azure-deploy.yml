@@ -26,3 +26,4 @@ stages:
     steps:
     - template: tfs_templates/docker_build_push_rmi.yml@docker_command 
 
+#trriger
