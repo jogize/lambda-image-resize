@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 
 env:
-    LAMBDA_NAME: lambda-resize
+    LAMBDA_NAME: better-mobility-APIGateway-lambda-resize
 jobs:
   build:
     runs-on: ubuntu-latest
